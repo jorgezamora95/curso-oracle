@@ -1,0 +1,62 @@
+
+
+-- Creamos las tablas 
+create table usuario(id_usuario integer, nombre varchar2(50), login varchar2(20), password varchar2(20),email varchar2(50) 
+, constraint pk_id_usuario primary key(id_usuario));
+
+create table hobbies(id_hobbie integer, nombre varchar2(50), id_usuario integer
+, constraint pk_id_hobbie primary key(id_hobbie), constraint fk_usuario foreign key(id_usuario) references usuario(id_usuario));
+
+create table direccion(id_direccion integer, calle varchar2(50), cp integer, municipio  varchar2(20), estado varchar2(50), id_usuario integer
+, constraint pk_id_direccion primary key(id_direccion), constraint fk_idusuario foreign key(id_usuario) references usuario(id_usuario));
+
+-- Creamos secuencias
+
+create sequence sec_usuario
+start with 1
+increment by 1
+nomaxvalue;
+
+create sequence sec_hobbies
+start with 1
+increment by 1
+nomaxvalue;
+
+create sequence sec_direccion
+start with 1
+increment by 1
+nomaxvalue;
+
+
+CREATE OR REPLACE PROCEDURE guardar_usuario(MY_ID_USUARIO OUT INTEGER, MY_NOMBRE IN VARCHAR2, MY_LOGIN IN INTEGER, MY_PASSWORD IN VARCHAR2, MY_EMAIL IN VARCHAR2)
+AS 
+BEGIN
+SELECT SEC_USUARIO.NEXTVAL INTO MY_ID_USUARIO FROM DUAL;
+INSERT INTO USUARIO VALUES(MY_ID_USUARIO, MY_NOMBRE, MY_LOGIN, MY_PASSWORD, MY_EMAIL);
+END;
+/
+
+CREATE OR REPLACE PROCEDURE guardar_HOBBIES(MY_ID_HOBBIE OUT INTEGER, MY_NOMBRE IN VARCHAR2, MY_ID_USUARIO IN INTEGER)
+AS 
+BEGIN
+SELECT SEC_HOBBIES.NEXTVAL INTO MY_ID_HOBBIE FROM DUAL;
+INSERT INTO HOBBIES VALUES(MY_ID_HOBBIE, MY_NOMBRE, MY_ID_USUARIO);
+END;
+/
+
+CREATE OR REPLACE PROCEDURE guardar_DIRECCION(MY_ID_DIRECCION OUT INTEGER, MY_NOMBRE IN VARCHAR2, MY_CP IN INTEGER, MY_MUNICIPIO IN VARCHAR2, MY_ESTADO IN VARCHAR2, MY_ID_USUARIO IN INTEGER)
+AS 
+BEGIN
+SELECT SEC_DIRECCION.NEXTVAL INTO MY_ID_DIRECCION FROM DUAL;
+INSERT INTO DIRECCION VALUES(MY_ID_DIRECCION, MY_NOMBRE, MY_CP, MY_MUNICIPIO, MY_ESTADO, MY_ID_USUARIO);
+END;
+/
+
+
+DECLARE 
+VALOR INTEGER;
+BEGIN
+guardar_USUARIO(VALOR,'Juan',123,'yo123','juan@gmail.com');
+END;
+/
+select * from usuario;
