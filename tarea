@@ -5,7 +5,7 @@ CREAR Y CONFIGURAR BASE DE DATOS
 -oraclesin
 -system
 -system
-Entrepise Etidion
+Entrepise Edition
 Por defecto
 orcl
 system
@@ -13,7 +13,8 @@ system
 pdborcl
 desbloquear la de olapsys system system
 desbloquear orddata system system
-que es iyeccion de sql
+
+que es inyeccion de sql
 select
 insert
 update
